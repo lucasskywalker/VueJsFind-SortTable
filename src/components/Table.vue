@@ -1,49 +1,73 @@
 <template>
-    <div class="table">
-        <div class="table__search">
-            <input type="text" v-model="searchValue">
-        </div>
-        <div class="table__head">
-            <div class="table__row">
-                <div class="table__col"><b>id</b></div>
-                <div class="table__col" @click="sortColumn('name')"><b>name</b></div>
-                <div class="table__col" @click="sortColumn('location')"><b>location</b></div>
-                <div class="table__col" @click="sortColumn('currency')"><b>currency</b></div>
-            </div>
-        </div>
-
-        <div class="table__body">
-            <div class="table__row" v-for="item in outputList">
-                <div class="table__col">
-                    {{item.id}}
-                </div>
-                <div class="table__col">
-                    <input type="text" :value="item.name"
-                           @input="validationValue({type: 'string', input: $event.target})"
-                           @blur="changeValue({id: item.id, category: 'name', value: $event.target.value})">
-                </div>
-                <div class="table__col">
-                    <input type="text" :value="item.location"
-                           @input="validationValue({type: 'string', input: $event.target})"
-                           @blur="changeValue({id: item.id, category: 'location', value: $event.target.value})">
-                </div>
-                <div class="table__col">
-                    <input type="text" :value="item.currency"
-                           @input="validationValue({type: 'number', input: $event.target})"
-                           @blur="changeValue({id: item.id, category: 'currency', value: $event.target.value})">
-                </div>
-            </div>
-        </div>
-
-        <div class="table__total">
-            <div class="table__row">
-                <div class="table__col"></div>
-                <div class="table__col"></div>
-                <div class="table__col"></div>
-                <div class="table__col"><b>Total {{totalCurrency}}</b></div>
-            </div>
-        </div>
+  <div class="table">
+    <div class="table__search">
+      <input type="text" v-model="searchValue" placeholder="Quick search">
     </div>
+    <div class="table__head">
+      <div class="table__row">
+        <div class="table__col">
+          <div class="table__sort-button table__sort-button--disabled">
+            <div class="table__sort-button-name">
+              id
+            </div>
+          </div>
+        </div>
+        <div class="table__col">
+          <div class="table__sort-button" @click="sortColumn('name')">
+            <div class="table__sort-button-name">
+              name
+            </div>
+          </div>
+        </div>
+        <div class="table__col">
+          <div class="table__sort-button" @click="sortColumn('location')">
+            <div class="table__sort-button-name">
+              location
+            </div>
+          </div>
+        </div>
+        <div class="table__col">
+          <div class="table__sort-button" @click="sortColumn('currency')">
+            <div class="table__sort-button-name">
+              currency
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table__body">
+      <div class="table__row" v-for="item in outputList">
+        <div class="table__col">
+          {{item.id}}
+        </div>
+        <div class="table__col">
+          <input type="text" :value="item.name"
+                 @input="validationValue({type: 'string', input: $event.target})"
+                 @blur="changeValue({id: item.id, category: 'name', value: $event.target.value})">
+        </div>
+        <div class="table__col">
+          <input type="text" :value="item.location"
+                 @input="validationValue({type: 'string', input: $event.target})"
+                 @blur="changeValue({id: item.id, category: 'location', value: $event.target.value})">
+        </div>
+        <div class="table__col">
+          <input type="text" :value="item.currency"
+                 @input="validationValue({type: 'number', input: $event.target})"
+                 @blur="changeValue({id: item.id, category: 'currency', value: $event.target.value})">
+        </div>
+      </div>
+    </div>
+
+    <div class="table__total">
+      <div class="table__row">
+        <div class="table__col"></div>
+        <div class="table__col"></div>
+        <div class="table__col"></div>
+        <div class="table__col"><b>Total {{totalCurrency}}</b></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -94,9 +118,9 @@
         });
       },
       validationValue(params) {
-        switch(params.type) {
+        switch (params.type) {
           case 'number':
-            params.input.value = params.input.value.replace(/[^\d]/,'');
+            params.input.value = params.input.value.replace(/[^\d]/, '');
             break;
           case 'string':
             params.input.value = params.input.value.replace(/\d/, '');

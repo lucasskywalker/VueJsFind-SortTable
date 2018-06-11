@@ -1,4 +1,4 @@
-# eve-miami
+# vue-js sort and find (vuex)
 
 > A Vue.js project
 
